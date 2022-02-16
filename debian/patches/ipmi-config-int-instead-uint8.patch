@@ -1,0 +1,64 @@
+Author: Albert Chu <chu11@llnl.gov>
+Date: Tue, 7 Jan 2020 13:38:38 -0800
+Description: ipmi-config: Return int instead of uint8_t when a negative
+ value can be returned.  Cast to uint8_t when appropriate.
+
+Origin: https://github.com/chu11/freeipmi-mirror/commit/fcc028c94c9fff430688ffb60bbb1e433ae86d89
+
+Last-Update: 2022-01-27
+---
+ ChangeLog                                                 | 4 ++++
+ ipmi-config/ipmi-config-category-core-lan6-conf-section.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -114,6 +114,10 @@
+ 	* common/toolcommon/pstdout.c (pstdout_set_debug_flags): Fix typo
+ 	&& instead of &.
+ 
++	* ipmi-config/ipmi-config/ipmi-config-category-core-lan6-conf-section.c:
++	Return int instead of uint8_t when a negative value can be
++	returned.  Cast to uint8_t when appropriate.
++
+ 2019-11-27 Albert Chu <chu11@llnl.gov>
+ 
+ 	* libfreeipmi/sdr/ipmi-sdr-parse-util.c
+--- a/ipmi-config/ipmi-config-category-core-lan6-conf-section.c
++++ b/ipmi-config/ipmi-config-category-core-lan6-conf-section.c
+@@ -59,7 +59,7 @@
+   uint8_t enable_dynamic_router_address;
+ };
+ 
+-static uint8_t
++static int
+ get_address_status_number (const char *string)
+ {
+   assert (string);
+@@ -707,7 +707,7 @@
+   return (rv);
+ }
+ 
+-uint8_t
++int
+ get_static_address_source_number (const char *string)
+ {
+   assert (string);
+@@ -778,7 +778,7 @@
+                                        &ipv6_data)) != IPMI_CONFIG_ERR_SUCCESS)
+     return (ret);
+ 
+-  ipv6_data.source = get_static_address_source_number (kv->value_input);
++  ipv6_data.source = (uint8_t)get_static_address_source_number (kv->value_input);
+ 
+   return (_set_ipv6_static_address (state_data,
+                                     section_name,
+@@ -1137,7 +1137,7 @@
+   return (rv);
+ }
+ 
+-static uint8_t
++static int
+ get_dynamic_address_source_number (const char *string)
+ {
+   assert (string);

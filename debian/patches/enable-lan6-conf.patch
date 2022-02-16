@@ -1,0 +1,31 @@
+Author: Fabio Fantoni <fantonifabio@tiscali.it>
+Description: enable ipmi-config lan6_conf section
+Was developed by ubuntu developers and added in ubuntu 18.04 packages.
+Upstream disabled it for missing contact with developers and too
+low testing.
+As reported by ubuntu users this features was already used in
+production, with this patch I reenable it.
+
+Forwarded: not yet
+
+Last-Update: 2022-01-24
+---
+
+--- a/ipmi-config/ipmi-config-category-core-sections.c
++++ b/ipmi-config/ipmi-config-category-core-sections.c
+@@ -231,7 +231,6 @@
+         }
+     }
+ 
+-#if 0
+   /* Lan6_Conf Section(s) */
+ 
+   if (!(section = ipmi_config_core_lan6_conf_section_get (state_data,
+@@ -253,7 +252,6 @@
+             goto cleanup;
+         }
+     }
+-#endif
+ 
+   /* Lan_Conf_Auth Section(s) */
+ 

@@ -1,0 +1,8 @@
+#!/usr/bin/dh-exec --with-scripts=filter-arch
+etc/freeipmi/ipmiseld.conf
+[!linux-any] etc/init.d/ipmidetectd
+[linux-any] lib/systemd/system/ipmiseld.service
+usr/sbin/ipmiseld
+usr/share/man/man5/ipmiseld.conf.5
+usr/share/man/man8/ipmiseld.8
+var/cache/ipmiseld

@@ -1,0 +1,2 @@
+# freeipmi.conf contains sensitive information
+freeipmi-common binary: non-standard-file-perm etc/freeipmi/freeipmi.conf 0640 != 0644

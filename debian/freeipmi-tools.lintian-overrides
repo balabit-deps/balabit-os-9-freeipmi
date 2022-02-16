@@ -1,0 +1,5 @@
+# Quite a few lines in freeipmi pages might not be hypened easily, e.g. like
+# .B Chassis_Front_Panel_Buttons:Enable_Power_Off_Button_For_Power_Off_Only
+freeipmi-tools: groff-message usr/share/man/man8/ipmi-oem.8.gz 703: warning [p 8, 7.7i, div 'an-div', 0.2i]: cannot adjust line
+freeipmi-tools: groff-message usr/share/man/man8/ipmi-oem.8.gz 725: warning [p 8, 11.2i, div 'an-div', 0.2i]: cannot adjust line
+freeipmi-tools: groff-message usr/share/man/man8/ipmi-oem.8.gz 758: warning [p 9, 3.8i, div 'an-div', 0.2i]: cannot adjust line

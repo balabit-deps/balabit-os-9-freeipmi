@@ -1,0 +1,11 @@
+#!/usr/bin/dh-exec --with-scripts=filter-arch
+etc/freeipmi/ipmidetect*.conf
+[!linux-any] etc/init.d/ipmiseld
+[linux-any] lib/systemd/system/ipmidetectd.service
+usr/sbin/ipmi-detect
+usr/sbin/ipmidetect
+usr/sbin/ipmidetectd
+usr/share/man/man5/ipmidetect.conf.5
+usr/share/man/man5/ipmidetectd.conf.5
+usr/share/man/man8/ipmi*detect.8
+usr/share/man/man8/ipmidetectd.8

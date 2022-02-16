@@ -1,0 +1,54 @@
+Author: Albert Chu <chu11@llnl.gov>
+Date: Fri, 28 Jan 2022 14:49:12 -0800
+Description: ipmi-config: fix output corner case due to missing error
+ handling
+
+Origin: https://github.com/chu11/freeipmi-mirror/commit/3549c8550c53a7b0308acd105e331e305495c27f
+
+Last-Update: 2022-01-29
+---
+ ...i-config-category-core-lan6-conf-section.c | 22 ++++++++++---------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/ipmi-config/ipmi-config-category-core-lan6-conf-section.c b/ipmi-config/ipmi-config-category-core-lan6-conf-section.c
+index e82ca1c74..6d5e2943b 100644
+--- a/ipmi-config/ipmi-config-category-core-lan6-conf-section.c
++++ b/ipmi-config/ipmi-config-category-core-lan6-conf-section.c
+@@ -1800,18 +1800,18 @@ ipv6_static_router_mac_address_checkout (ipmi_config_state_data_t *state_data,
+ 
+   if (num == 1)
+     tmp = ipmi_cmd_get_lan_configuration_parameters_ipv6_static_router_1_mac_address (state_data->ipmi_ctx,
+-                                                                                     channel_number,
+-                                                                                     IPMI_GET_LAN_PARAMETER,
+-                                                                                     IPMI_LAN_CONFIGURATION_PARAMETERS_NO_SET_SELECTOR,
+-                                                                                     IPMI_LAN_CONFIGURATION_PARAMETERS_NO_BLOCK_SELECTOR,
+-                                                                                     obj_cmd_rs);
++                                                                                      channel_number,
++                                                                                      IPMI_GET_LAN_PARAMETER,
++                                                                                      IPMI_LAN_CONFIGURATION_PARAMETERS_NO_SET_SELECTOR,
++                                                                                      IPMI_LAN_CONFIGURATION_PARAMETERS_NO_BLOCK_SELECTOR,
++                                                                                      obj_cmd_rs);
+   else
+     tmp = ipmi_cmd_get_lan_configuration_parameters_ipv6_static_router_2_mac_address (state_data->ipmi_ctx,
+-                                                                                     channel_number,
+-                                                                                     IPMI_GET_LAN_PARAMETER,
+-                                                                                     IPMI_LAN_CONFIGURATION_PARAMETERS_NO_SET_SELECTOR,
+-                                                                                     IPMI_LAN_CONFIGURATION_PARAMETERS_NO_BLOCK_SELECTOR,
+-                                                                                     obj_cmd_rs);
++                                                                                      channel_number,
++                                                                                      IPMI_GET_LAN_PARAMETER,
++                                                                                      IPMI_LAN_CONFIGURATION_PARAMETERS_NO_SET_SELECTOR,
++                                                                                      IPMI_LAN_CONFIGURATION_PARAMETERS_NO_BLOCK_SELECTOR,
++                                                                                      obj_cmd_rs);
+ 
+   if (tmp < 0)
+     {
+@@ -2031,6 +2031,8 @@ ipv6_static_router_prefix_length_checkout (ipmi_config_state_data_t *state_data,
+                                                                kv,
+                                                                prefix_length) < 0)
+ 
++    return (IPMI_CONFIG_ERR_FATAL_ERROR);
++
+   rv = IPMI_CONFIG_ERR_SUCCESS;
+  cleanup:
+   fiid_obj_destroy (obj_cmd_rs);

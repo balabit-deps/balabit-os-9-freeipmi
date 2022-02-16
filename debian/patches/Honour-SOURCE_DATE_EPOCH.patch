@@ -1,0 +1,22 @@
+Description: Honour SOURCE_DATE_EPOCH in manpages
+ Replace man pages dates with the timestamp from the latest
+ debian/changelog entry using the variable SOURCE_DATE_EPOCH to make the
+ package build reproducibly.
+Author: Eduard Sanou <dhole@openmailbox.org>
+Forwarded: not-needed
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -117,7 +117,11 @@
+ 	man/rmcpping.8.pre
+         rmcpping/Makefile])
+ 
+-ISODATE=`date -u -r ChangeLog +%Y-%m-%d`
++if test -z "${SOURCE_DATE_EPOCH}"; then
++  ISODATE=`date -u -r ChangeLog +%Y-%m-%d`
++else
++  ISODATE=`date -u -d @$SOURCE_DATE_EPOCH +%Y-%m-%d`
++fi
+ AC_SUBST([ISODATE])
+ 
+ # libfreeipmi libtool versioning

@@ -1,0 +1,6 @@
+#!/usr/bin/dh-exec --with-scripts=filter-arch
+etc/default/bmc-watchdog
+[!linux-any] etc/init.d/bmc-watchdog
+[linux-any] lib/systemd/system/bmc-watchdog.service
+usr/sbin/bmc-watchdog
+usr/share/man/man8/bmc-watchdog.8

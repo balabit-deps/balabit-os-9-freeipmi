@@ -1,0 +1,79 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+bindnow
+
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	CONFIGURE_EXTRA_FLAGS = \
+	--disable-init-scripts
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- --enable-static=no \
+	--with-systemconfigdir=/etc/default $(CONFIGURE_EXTRA_FLAGS)
+
+override_dh_auto_install:
+	dh_auto_install
+
+	: # Clean up duplicate/unneeded copyright/installation files
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/freeipmi/COPYING*
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/freeipmi/DISCLAIMER*
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/freeipmi/INSTALL
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/freeipmi/ChangeLog
+
+	: # chrpath -- operate only on files (not on still dangling symlinks)
+	/usr/bin/find  $(CURDIR)/debian/*/usr/sbin -type f \
+	| xargs grep -L '#!/bin/sh' \
+	| xargs chrpath -d
+	chrpath -d $(CURDIR)/debian/*/usr/lib/*/*.so.*
+
+	: # assure no dir.gz
+	rm -f $(CURDIR)/debian/tmp/usr/share/info/dir
+
+override_dh_install:
+	: # We don't need the libtool metadata
+	dh_install -X.la
+
+override_dh_installlogrotate:
+	dh_installlogrotate --name=bmc-watchdog
+
+override_dh_fixperms-indep:
+	dh_fixperms
+
+	: # since it contains sensitive information
+	chmod 640      $(CURDIR)/debian/freeipmi-common/etc/freeipmi/freeipmi.conf
+	chown root:adm $(CURDIR)/debian/freeipmi-common/etc/freeipmi/freeipmi.conf
+
+override_dh_installchangelogs:
+	dh_installchangelogs --keep
+
+override_dh_link:
+	dh_link
+	for i in $$(awk '/^Package:/{print $$2}' debian/control | grep -v freeipmi-common); do \
+		dh_link -p $${i} usr/share/doc/freeipmi-common usr/share/doc/$${i}/doc ; \
+	done
+
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+override_dh_installsystemd:
+	: # Use Debian specific service files with "matching" names
+	dh_installsystemd -pfreeipmi-bmc-watchdog \
+	 --name=bmc-watchdog --no-enable --no-start
+	dh_installsystemd -pfreeipmi-ipmidetect \
+	 --name=ipmidetectd --no-enable --no-start
+	dh_installsystemd -pfreeipmi-ipmiseld \
+	 --name=ipmiseld
+endif
+
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+override_dh_installinit:
+	dh_installinit -pfreeipmi-bmc-watchdog \
+	 --name=bmc-watchdog --no-enable --no-start
+	dh_installinit -pfreeipmi-ipmidetect \
+	 --name=ipmidetectd --no-enable --no-start
+	dh_installinit -pfreeipmi-ipmiseld \
+	 --name=ipmiseld
+endif
+

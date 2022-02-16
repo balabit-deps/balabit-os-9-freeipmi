@@ -1,0 +1,24 @@
+Author: Albert Chu <chu11@llnl.gov>
+Date: Fri, 28 Jan 2022 14:58:34 -0800
+Description: libfreeipmi/cmds: fix invalid template check error
+
+Origin: https://github.com/chu11/freeipmi-mirror/commit/56234312eb82b455218a4fc0763a4ba0d2561297
+
+Last-Update: 2022-01-29
+---
+ libfreeipmi/cmds/ipmi-lan-cmds.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libfreeipmi/cmds/ipmi-lan-cmds.c b/libfreeipmi/cmds/ipmi-lan-cmds.c
+index 959548ca6..365e1771c 100644
+--- a/libfreeipmi/cmds/ipmi-lan-cmds.c
++++ b/libfreeipmi/cmds/ipmi-lan-cmds.c
+@@ -2324,7 +2324,7 @@ fill_cmd_set_lan_configuration_parameters_ipv6_static_addresses (uint8_t channel
+       return (-1);
+     }
+ 
+-  if (FIID_OBJ_TEMPLATE_COMPARE (obj_cmd_rq, tmpl_cmd_set_lan_configuration_parameters_ipv6_header_flow_label_rq) < 0)
++  if (FIID_OBJ_TEMPLATE_COMPARE (obj_cmd_rq, tmpl_cmd_set_lan_configuration_parameters_ipv6_static_addresses_rq) < 0)
+     {
+       ERRNO_TRACE (errno);
+       return (-1);

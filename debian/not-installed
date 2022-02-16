@@ -1,0 +1,2 @@
+# We don't need the libtool metadata
+usr/lib/*/*.la
