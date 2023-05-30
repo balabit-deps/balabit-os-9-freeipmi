@@ -5,3 +5,4 @@ fix-ipv6-dynamic-address.patch
 all-ipv6-only-in-verbose.patch
 ipv6-add-missing-error-endling.patch
 ipv6-static-fix-invalid-template-check-error.patch
+add-initial-support-for-xilinx.patch

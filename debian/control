@@ -1,7 +1,8 @@
 Source: freeipmi
 Section: admin
 Priority: optional
-Maintainer: Fabio Fantoni <fantonifabio@tiscali.it>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Fabio Fantoni <fantonifabio@tiscali.it>
 Uploaders: Bernd Zeimetz <bzed@debian.org>
 Build-Depends:
  chrpath,
