@@ -1,3 +1,11 @@
+freeipmi (1.6.9-2ubuntu0.22.04.2) jammy; urgency=medium
+
+  * d/p/add-initial-support-for-xilinx.patch
+    - Fix missing header file in libfreeipmi-dev package
+      (LP: #2025177)
+
+ -- Talha Can Havadar <talha.can.havadar@canonical.com>  Wed, 28 Jun 2023 15:31:40 +0200
+
 freeipmi (1.6.9-2ubuntu0.22.04.1) jammy; urgency=medium
 
   * d/p/add-initial-support-for-xilinx.patch: enable Xilinx OEM data parsing
