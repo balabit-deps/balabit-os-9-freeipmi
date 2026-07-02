@@ -6,3 +6,6 @@ all-ipv6-only-in-verbose.patch
 ipv6-add-missing-error-endling.patch
 ipv6-static-fix-invalid-template-check-error.patch
 add-initial-support-for-xilinx.patch
+CVE-2026-33554.patch
+CVE-2026-50031-1.patch
+CVE-2026-50031-2.patch

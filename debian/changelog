@@ -1,3 +1,19 @@
+freeipmi (1.6.9-2ubuntu0.22.04.3) jammy-security; urgency=medium
+
+  * SECURITY UPDATE: memory out of bounds errors
+    - debian/patches/CVE-2026-33554.patch: set bounds for memcpy operations in
+      ipmi-oem/ipmi-oem-dell.c, ipmi-oem/ipmi-oem-supermicro.c,
+      ipmi-oem/ipmi-oem-wistron.c.
+    - CVE-2026-33554
+  * SECURITY UPDATE: potential stack corruption & overflow
+    - debian/patches/CVE-2026-50031-1.patch: correct length of token_data
+      buffer from 256 to 65536 bytes in ipmi-oem/ipmi-oem-dell.c.
+    - debian/patches/CVE-2026-50031-2.patch: set upper bound of data_length in
+      ipmi-oem/ipmi-oem-fujitsu.c.
+    - CVE-2026-50031
+
+ -- Charles Cochran <charles.cochran@canonical.com>  Thu, 02 Jul 2026 15:35:43 -0400
+
 freeipmi (1.6.9-2ubuntu0.22.04.2) jammy; urgency=medium
 
   * d/p/add-initial-support-for-xilinx.patch
