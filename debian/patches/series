@@ -9,3 +9,9 @@ add-initial-support-for-xilinx.patch
 CVE-2026-33554.patch
 CVE-2026-50031-1.patch
 CVE-2026-50031-2.patch
+CVE-2026-85504.patch
+CVE-2026-85505.patch
+CVE-2026-85506.patch
+CVE-2026-85507.patch
+CVE-2026-85508.patch
+CVE-2026-85509.patch

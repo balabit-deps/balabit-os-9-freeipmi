@@ -1,3 +1,33 @@
+freeipmi (1.6.9-2ubuntu0.22.04.4) jammy-security; urgency=medium
+
+  * SECURITY UPDATE: stack overflow in libfreeipmi Fujitsu SEL parsing
+    - debian/patches/CVE-2026-85504.patch: reject short and oversized
+      responses and bound each text chunk in
+      libfreeipmi/sel/ipmi-sel-string-fujitsu-irmc-common.c.
+    - CVE-2026-85504
+  * SECURITY UPDATE: stack over-read in ipmi-oem Fujitsu SEL long-text
+    - debian/patches/CVE-2026-85505.patch: copy only the remaining
+      data_length bytes in ipmi-oem/ipmi-oem-fujitsu.c.
+    - CVE-2026-85505
+  * SECURITY UPDATE: stack overflow in ipmi-oem Dell idrac-info
+    - debian/patches/CVE-2026-85506.patch: check idrac_info buffer size
+      before copying in ipmi-oem/ipmi-oem-dell.c.
+    - CVE-2026-85506
+  * SECURITY UPDATE: stack overflow in ipmi-oem Dell cmc-info
+    - debian/patches/CVE-2026-85507.patch: check cmc_info buffer size
+      before copying in ipmi-oem/ipmi-oem-dell.c.
+    - CVE-2026-85507
+  * SECURITY UPDATE: stack overflow in ipmi-oem Dell cmc-ipv6-info
+    - debian/patches/CVE-2026-85508.patch: check cmc_ipv6_info buffer size
+      before copying in ipmi-oem/ipmi-oem-dell.c.
+    - CVE-2026-85508
+  * SECURITY UPDATE: stack overflow in libfreeipmi FRU reading
+    - debian/patches/CVE-2026-85509.patch: reject a count_returned larger
+      than requested in libfreeipmi/fru/ipmi-fru.c.
+    - CVE-2026-85509
+
+ -- Charles Cochran <charles.cochran@canonical.com>  Fri, 25 Sep 2026 15:46:53 -0400
+
 freeipmi (1.6.9-2ubuntu0.22.04.3) jammy-security; urgency=medium
 
   * SECURITY UPDATE: memory out of bounds errors
